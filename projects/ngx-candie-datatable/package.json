@@ -1,0 +1,23 @@
+{
+  "name": "ngx-candie-datatable",
+  "version": "1.0.1",
+  "author": "Serhat KAYA",
+  "description": "Data table library for Angular. Includes internal & external sorting, paging.",
+  "keywords": [
+    "angular",
+    "datatable",
+    "angular-datatable-library",
+    "candie-data-table",
+    "data-table"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^12.0.5",
+    "@angular/core": "^12.0.5"
+  },
+  "dependencies": {
+    "tslib": "^2.1.0"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/serhatkaya/ngx-candie-datatable",
+  "homepage": "https://github.com/serhatkaya/ngx-candie-datatable"
+}

@@ -1,0 +1,6 @@
+.candie-table-header {
+  &.sortable {
+    cursor: pointer;
+    user-select: none;
+  }
+}

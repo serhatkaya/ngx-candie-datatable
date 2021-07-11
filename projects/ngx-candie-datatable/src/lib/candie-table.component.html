@@ -1,0 +1,97 @@
+<div class="row no-gutters" *ngIf="config && data">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table id="candie-datatable" class="table table-bordered table-striped">
+        <thead>
+          <th *ngIf="config.enableSelect">
+            <input type="checkbox" id="checkall" />
+          </th>
+          <ng-container *ngIf="config.internalSorting; else externalSorting">
+            <ng-container *ngFor="let column of config.columns">
+              <th
+                class="candie-table-header sortable"
+                *ngIf="column.sortable"
+                [candieSort]="data"
+                [internalSorting]="true"
+                [property]="column.property"
+              >
+                {{ column.label }}
+              </th>
+              <th *ngIf="!column.sortable" class="candie-table-header">
+                {{ column.label }}
+              </th>
+            </ng-container>
+          </ng-container>
+          <ng-template #externalSorting>
+            <ng-container *ngFor="let column of config.columns">
+              <th
+                class="candie-table-header sortable"
+                *ngIf="column.sortable"
+                [candieSort]="data"
+                [internalSorting]="false"
+                (onSort)="onSort($event)"
+                [property]="column.property"
+              >
+                {{ column.label }}
+              </th>
+              <th *ngIf="!column.sortable" class="candie-table-header">
+                {{ column.label }}
+              </th>
+            </ng-container>
+          </ng-template>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="config.internalPaging; else externalPaging">
+            <tr
+              *ngFor="
+                let row of data.slice(
+                  pager.offset * pager.size,
+                  (pager.offset + 1) * pager.size
+                )
+              "
+            >
+              <td *ngIf="config.enableSelect">
+                <input type="checkbox" class="checkthis" />
+              </td>
+              <td *ngFor="let column of config.columns">
+                {{
+                  column.isDate
+                    ? (row[column.property]
+                      | date
+                        : (column.dateFormat
+                            ? column.dateFormat
+                            : "dd/MM/yyyy HH:mm"))
+                    : row[column.property]
+                }}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #externalPaging>
+            <tr *ngFor="let row of data">
+              <td *ngIf="config.enableSelect">
+                <input type="checkbox" class="checkthis" />
+              </td>
+              <td *ngFor="let column of config.columns">
+                {{
+                  column.isDate
+                    ? (row[column.property]
+                      | date
+                        : (column.dateFormat
+                            ? column.dateFormat
+                            : "dd/MM/yyyy HH:mm"))
+                    : row[column.property]
+                }}
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+      <candie-pagination
+        [totalPages]="getTotalPages()"
+        [pageSize]="pager.size"
+        (sizeChange)="setSize($event)"
+        (pageChange)="setPage($event)"
+      ></candie-pagination>
+    </div>
+  </div>
+</div>

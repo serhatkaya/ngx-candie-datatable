@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-end">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" aria-label="First" (click)="goToPage(0)">
+        <em class="icon-angle-double-left"></em>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" aria-label="Previous" (click)="previous()">
+        <em class="icon-angle-left"></em>
+      </a>
+    </li>
+    <li
+      *ngFor="let page of pager.pages"
+      class="page-item"
+      [class.active]="currentPage == page - 1"
+    >
+      <a class="page-link" (click)="goToPage(page - 1)" [innerText]="page"></a>
+    </li>
+
+    <li class="page-item" *ngIf="pager.totalPages - pager.startPage > 5">
+      <a class="page-link" (click)="goToPage(pager.startPage + 5)">...</a>
+    </li>
+
+    <li class="page-item" *ngIf="pager.totalPages - pager.startPage > 5">
+      <a
+        class="page-link"
+        (click)="goToPage(pager.totalPages - 1)"
+        [innerText]="pager.totalPages"
+      ></a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" aria-label="Next" (click)="next()">
+        <em class="icon-angle-right"></em>
+      </a>
+    </li>
+    <li class="page-item">
+      <a
+        class="page-link"
+        aria-label="Last"
+        (click)="goToPage(pager.totalPages - 1)"
+      >
+        <em class="icon-angle-double-right"></em>
+      </a>
+    </li>
+    <li class="page-item ml-2">
+      <select class="form-select h-100" (change)="changeSize($event.target)">
+        <option selected value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </li>
+  </ul>
+</div>
